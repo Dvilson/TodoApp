@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -46,5 +50,25 @@ dependencies {
     // navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
+    //dataStore and Datapreferences
+    implementation "androidx.datastore:datastore:1.0.0-rc01"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-rc01"
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.0-alpha03'
+    kapt "androidx.room:room-compiler:2.4.0-alpha03"
+
+    // lifecycle ktx
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+
+    // dagger Hilt for dependancy Injection
+    implementation "com.google.dagger:hilt-android:2.36"
+    kapt "com.google.dagger:hilt-compiler:2.36"
+
 
 }
