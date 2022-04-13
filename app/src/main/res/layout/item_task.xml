@@ -15,6 +15,7 @@
     </CheckBox>
 
     <TextView
+        android:id="@+id/text_view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Exemple de tâche"
@@ -27,6 +28,7 @@
     </TextView>
 
     <ImageView
+        android:id="@+id/label_priority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_priority"
