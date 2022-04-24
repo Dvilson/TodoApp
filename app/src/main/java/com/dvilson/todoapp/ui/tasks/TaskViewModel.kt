@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.dvilson.todoapp.data.PreferenceManager
 import com.dvilson.todoapp.data.SortOrder
+import com.dvilson.todoapp.data.Task
 import com.dvilson.todoapp.data.TaskDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,6 +44,16 @@ class TaskViewModel @Inject constructor
 
     fun onHideCompletedClick(hideCompleted:Boolean) =
         viewModelScope.launch { preferenceManager.updateHideCompled(hideCompleted) }
+
+    fun onTaskSelected(task: Task) {
+
+    }
+
+    fun onTaskCheckedChanged(task: Task, checked: Boolean) {
+        viewModelScope.launch {
+            dao.update(task.copy(completed = checked))
+        }
+    }
 
 
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dvilson.todoapp.data.Task
 import com.dvilson.todoapp.databinding.ItemTaskBinding
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCallback()) {
+class TaskAdapter(private val listner:OnItemClickListner) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -23,8 +23,28 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCallback()
     }
 
 
-    class TaskViewHolder(private val binding: ItemTaskBinding) :
+    inner class TaskViewHolder(private val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listner.onItemClick(task)
+                    }
+                }
+                checkBoxCompleted.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listner.onCheckBoxClick(task,checkBoxCompleted.isChecked)
+                    }
+
+                }
+            }
+        }
 
         fun bind(task: Task) {
             binding.apply {
@@ -37,6 +57,12 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCallback()
             }
 
         }
+    }
+
+
+    interface OnItemClickListner{
+        fun onItemClick(task: Task)
+        fun onCheckBoxClick(task: Task,isChecked:Boolean)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Task>() {
